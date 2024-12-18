@@ -1,9 +1,34 @@
-<form (ngSubmit)="updateProduct()">
-  <label>Name:</label>
-  <input [(ngModel)]="product.name" name="name" required />
-  <label>Price:</label>
-  <input type="number" [(ngModel)]="product.price" name="price" required />
-  <label>Description:</label>
-  <input [(ngModel)]="product.description" name="description" required />
-  <button type="submit">Update Product</button>
-</form>
+<div class="container mt-4">
+  <h2>Edit Product</h2>
+  <form (ngSubmit)="updateProduct()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input [(ngModel)]="product.name" name="name" id="name" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="brand">Brand:</label>
+      <input [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input [(ngModel)]="product.category" name="category" id="category" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea [(ngModel)]="product.description" name="description" id="description" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="createdDate">Created Date:</label>
+      <input [(ngModel)]="product.createdDate" name="createdDate" id="createdDate" type="date" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="fileName">Image (File name):</label>
+      <input [(ngModel)]="product.fileName" name="fileName" id="fileName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+  </form>
+</div>

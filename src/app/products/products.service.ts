@@ -18,8 +18,8 @@ export class ProductsService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  createProduct(product: any): Observable<any> {
-    return this.http.post(this.apiUrl, product);
+  createProduct(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.apiUrl, formData);
   }
 
   updateProduct(id: string | null, product: any): Observable<any> {
@@ -32,5 +32,19 @@ export class ProductsService {
 
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  saveProduct(product: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('brand', product.brand);
+    formData.append('category', product.category);
+    formData.append('price', product.price);
+    formData.append('description', product.description);
+    if (product.image) {
+      formData.append('image', product.image, product.image.name);
+    }
+
+    return this.http.post<any>(this.apiUrl, formData);
   }
 }

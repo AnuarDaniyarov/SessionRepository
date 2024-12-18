@@ -1,17 +1,14 @@
 <div class="container">
   <h1>Products List</h1>
 
-  <!-- Ошибка при загрузке данных -->
   <div *ngIf="errorMessage" class="alert alert-danger">
     {{ errorMessage }}
   </div>
 
-  <!-- Если продуктов нет -->
   <div *ngIf="products.length === 0 && !errorMessage" class="alert alert-info">
     No products available.
   </div>
 
-  <!-- Список продуктов -->
   <div *ngIf="products.length > 0">
     <ul class="product-list">
       <li *ngFor="let product of products" class="product-item">
@@ -19,11 +16,11 @@
         <p><strong>Price:</strong> {{ product.price | currency }}</p>
         <p><strong>Category:</strong> {{ product.category }}</p>
         <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Created At:</strong> {{ product.createdAt | date: 'shortDate' }}</p>
         <button (click)="goToProductDetails(product.id)" class="btn btn-info">View Details</button>
       </li>
     </ul>
   </div>
 
-  <!-- Кнопка для создания нового продукта -->
   <a [routerLink]="['/products/create']" class="btn btn-primary">Create New Product</a>
 </div>

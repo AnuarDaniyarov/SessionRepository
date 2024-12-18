@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../products.service';
-import {FormsModule} from "@angular/forms";
+import { Router } from '@angular/router';
+import { FormsModule } from "@angular/forms";
+
 @Component({
   selector: 'app-create-product',
   templateUrl: './create.component.html',
@@ -20,8 +22,9 @@ export class CreateComponent {
     image: null
   };
   imageError: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService, private router: Router) {}
 
   onImageSelected(event: any): void {
     const file = event.target.files[0];
@@ -45,17 +48,31 @@ export class CreateComponent {
     formData.append('description', this.products.description);
     formData.append('image', this.products.image);
 
-    this.productService.createProduct(formData).subscribe(response => {
-    }, error => {
-    });
+    this.productService.createProduct(formData).subscribe(
+      response => {
+        this.router.navigate(['/list.component.html']);
+      },
+      error => {
+        this.errorMessage = 'Failed to create product. Please try again.';
+        console.error(error);
+      }
+    );
   }
 
   cancel(): void {
-
+    this.router.navigate(['/']);
   }
 
-  saveProducts(): void {
-    console.log(this.products); // Для отладки
+  saveProduct(): void {
+    this.productService.saveProduct(this.products).subscribe({
+      next: (response) => {
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to save product. Please try again.';
+        console.error(error);
+        this.router.navigate(['/products']);
+      }
+    });
   }
-
 }

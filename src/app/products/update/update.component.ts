@@ -1,37 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../products.service';
 import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
-  styleUrls: ['./update.component.css'],
+  standalone: true,
   imports: [
     FormsModule
   ],
-  standalone: true
+  styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-  product = { name: '', price: 0, description: '' };
+  product: any = { name: '', brand: '', category: '', price: 0, description: '', createdDate: '', fileName: '' };
+
 
   constructor(
+    private route: ActivatedRoute,
     private productService: ProductsService,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.productService.getProductById(id).subscribe((data) => {
-      this.product = data;
-    });
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.productService.getProductById(productId).subscribe((data) => {
+        this.product = data;
+      });
+    }
   }
 
+
   updateProduct(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.productService.updateProduct(id, this.product).subscribe({
-      next: () => alert('Product updated successfully!'),
-      error: () => alert('Error updating product.'),
-    });
+    this.productService.updateProduct(this.product.id, this.product).subscribe(
+      () => {
+        this.router.navigate(['/products']);
+      },
+      (error) => {
+        console.error('Error updating product', error);
+      }
+    );
   }
+
 }

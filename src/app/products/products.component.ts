@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from './products.service';
 import {Router, RouterLink} from '@angular/router';
-import {CurrencyPipe} from "@angular/common";
+import {CurrencyPipe, DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-products',
@@ -9,7 +9,8 @@ import {CurrencyPipe} from "@angular/common";
   standalone: true,
   imports: [
     CurrencyPipe,
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   styleUrls: ['./products.component.css']
 })
