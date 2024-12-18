@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <h2>New Product</h2>
+  <form (ngSubmit)="createProducts()" #productForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        [(ngModel)]="products.name"
+        name="name"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <input
+        type="text"
+        class="form-control"
+        id="brand"
+        [(ngModel)]="products.brand"
+        name="brand"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <input
+        type="text"
+        class="form-control"
+        id="category"
+        [(ngModel)]="products.category"
+        name="category"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        [(ngModel)]="products.price"
+        name="price"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        [(ngModel)]="products.description"
+        name="description"
+        required
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        (change)="onImageSelected($event)"
+        required
+      />
+      <div *ngIf="imageError" class="text-danger">The image file is required</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  </form>
+</div>
