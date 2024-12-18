@@ -60,7 +60,7 @@ export class CreateComponent {
   }
 
   cancel(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['//']);
   }
 
   saveProduct(): void {
